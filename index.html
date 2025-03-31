@@ -10,13 +10,15 @@
             text-align: center;
             background: linear-gradient(135deg, #ff9a9e, #fad0c4);
             margin: 0;
-            padding: 50px 10px;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             overflow-y: auto;
+            overflow-x: hidden;
             position: relative;
+            flex-direction: column;
         }
         .container {
             background: white;
@@ -24,22 +26,42 @@
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             max-width: 500px;
-            width: 100%;
+            width: 90%;
             animation: fadeIn 1.5s ease-in-out;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
-        h2, p {
+        .heart {
+            color: red;
+            font-size: 30px;
+            animation: heartbeat 1.5s infinite;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        h2 {
+            color: #d6336c;
+        }
+        p {
             color: #333;
+            font-size: 18px;
+            line-height: 1.6;
         }
         .signature {
             margin-top: 20px;
             font-weight: bold;
             color: #d6336c;
         }
-        .floating-butterflies {
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        .floating-hearts, .floating-butterflies {
             position: absolute;
             top: 0;
             left: 0;
@@ -47,15 +69,15 @@
             height: 100%;
             pointer-events: none;
         }
-        .butterfly {
+        .heart-shape, .butterfly {
             position: absolute;
-            opacity: 0.5;
-            font-size: 50px;
-            animation: floatUp 6s infinite ease-in-out;
+            bottom: 0;
+            font-size: 20px;
+            animation: floatUp 4s infinite ease-in-out;
         }
         @keyframes floatUp {
-            0% { transform: translateY(100vh); opacity: 0.8; }
-            100% { transform: translateY(-10vh); opacity: 0; }
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
         }
         .music-button {
             margin-top: 15px;
@@ -67,21 +89,12 @@
             cursor: pointer;
             font-size: 16px;
         }
-        @media (max-width: 600px) {
-            body {
-                padding: 20px;
-                display: block;
-            }
-            .container {
-                width: 90%;
-                padding: 20px;
-            }
-        }
     </style>
 </head>
 <body>
+    <div class="floating-hearts"></div>
     <div class="floating-butterflies"></div><div class="container">
-    <h2>Hey, ❤️</h2>
+    <h2>Hey, <span class="heart">❤️</span></h2>
     <h2>Shailja</h2>
     <p>I don't know if this is the best way to say it, but here I am, taking a chance—because if I don’t, I know I’ll regret it forever.</p>
     <p>This might sound a little crazy, but from the moment I first saw you, something changed. That one glimpse of you, dressed in that pink suit, made my heart pause for a second. You looked like a dream—my dream.</p>
@@ -92,7 +105,7 @@
     <p>Maybe this letter sounds silly. Maybe you’ll smile. Maybe you’ll ignore it. But at least, I won’t regret not trying.</p>
     <p class="signature">Yours sincerely,</p>
     <p class="signature">Nitzz</p>
-    <p>P.S. I hope this message finds a way to your heart. ❤️</p>
+    <p class="footer">P.S. I hope this message finds a way to your heart. ❤️</p>
     <button class="music-button" onclick="playMusic()">Play Music 🎵</button>
 </div>
 
@@ -105,17 +118,6 @@
     function playMusic() {
         document.getElementById('bg-music').play();
     }
-    function createButterflies() {
-        const butterflyContainer = document.querySelector('.floating-butterflies');
-        let butterfly = document.createElement('div');
-        butterfly.innerHTML = '🦋';
-        butterfly.classList.add('butterfly');
-        butterfly.style.left = Math.random() * 100 + 'vw';
-        butterfly.style.animationDuration = (Math.random() * 4 + 3) + 's';
-        butterflyContainer.appendChild(butterfly);
-        setTimeout(() => butterfly.remove(), 6000);
-    }
-    setInterval(createButterflies, 2000);
 </script>
 
 </body>
